@@ -8,7 +8,7 @@ class MainController(QtWidgets.QMainWindow):
         uic.loadUi("main.ui",self)
         self.conexion = Conexion()
         self.conexion.conectar()
-        self.btn_insertar.connect(self.add_user)
+        self.btn_insertar.clicked.connect(self.add_user)
     
     def add_user(self):
         name = self.txt_nombre.text()
@@ -24,3 +24,5 @@ class MainController(QtWidgets.QMainWindow):
         else:
             sql = "INSERT INTO users values (%s,%s,%s,%s,%s,%s)"
             valores = ((0,name,last,email,passw,'defaul.jpg'))
+            self.conexion.insertar(sql, valores)
+            QtWidgets.QMessageBox.information(self,"Registro insertado correctamente",None)
